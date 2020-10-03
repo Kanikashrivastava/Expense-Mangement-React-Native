@@ -8,8 +8,6 @@ export default ({categories}) => {
   categories.map((value) =>
     newcategories.push({percentage: value.expenseRatio, color: value.color}),
   );
-  console.log(newcategories);
-
   return (
     <View style={styles.container}>
       <Pie

@@ -3,19 +3,28 @@ import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import {dine} from '../assests/image';
 
 const {height, width} = Dimensions.get('window');
-export default function TransectionCard() {
-  return (
+export default function TransectionCard({categoriesData}) {
+  return categoriesData ? (
     <View style={styles.container}>
       <View style={styles.rightBlock}>
         <Image source={dine} style={styles.icon} resizeMode={'contain'} />
         <View style={styles.categoryDetails}>
-          <Text style={[styles.color, styles.categoryTitle]}>Foods</Text>
-          <Text style={[styles.color, styles.categoryData]}>₹30,257</Text>
+          <Text style={[styles.color, styles.categoryTitle]}>
+            {categoriesData.name}
+          </Text>
+          <Text
+            style={[
+              styles.color,
+              styles.categoryData,
+            ]}>{`₹${categoriesData.rupee}`}</Text>
         </View>
       </View>
-      <Text style={styles.totalExpenseRatio}>90.57 %</Text>
+      <Text
+        style={
+          styles.totalExpenseRatio
+        }>{`${categoriesData.expenseRatio}%`}</Text>
     </View>
-  );
+  ) : null;
 }
 
 const styles = StyleSheet.create({

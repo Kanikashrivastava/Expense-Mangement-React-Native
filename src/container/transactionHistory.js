@@ -1,104 +1,68 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
-import {zomato, dunzo} from '../assests/image';
 
-const {height, width} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const data = {
-  '17 Sep 2020': [
-    {
-      date: '17 Sep 2020',
-      time: '05:23 pm',
-      from: 'Transfer from Dobleh',
-      img: zomato,
-      status: 'Successful',
-      amount: '₹ 1.14',
-    },
-    {
-      date: '17 Sep 2020',
-      time: '05:23 pm',
-      from: 'Transfer from Dobleh',
-      img: dunzo,
-      status: 'Failed',
-      amount: '₹ 1.14',
-    },
-  ],
-  '16 Sep 2020': [
-    {
-      date: '16 Sep 2020',
-      time: '05:23 pm',
-      from: 'Transfer from Dobleh',
-      img: zomato,
-      status: 'Successful',
-      amount: '₹ 1.14',
-    },
-    {
-      date: '16 Sep 2020',
-      time: '05:23 pm',
-      from: 'Transfer from Dobleh',
-      img: dunzo,
-      status: 'Successful',
-      amount: '₹ 1.14',
-    },
-  ],
-};
 const sucess = '#2A9D8F';
-export default function TransactionHistory() {
-  return (
+export default function TransactionHistory({categoriesData}) {
+  return categoriesData ? (
     <View>
       <Text style={styles.header}>{'Transaction History'}</Text>
-      {Object.keys(data).map((key, index) => (
-        <>
-          <Text style={[styles.categoryData, styles.addSpace]}>{key}</Text>
-          {data[key].map((value) => (
-            <View>
-              <View style={styles.container}>
-                <View style={styles.rightBlock}>
-                  <Image
-                    source={value.img}
-                    style={styles.icon}
-                    resizeMode={'contain'}
-                  />
-                  <View style={styles.categoryDetails}>
-                    <Text style={[styles.color, styles.categoryTitle]}>
-                      {value.from}
+      {Object.keys(categoriesData).map((key, index) => (
+        <View>
+          <Text key={index} style={[styles.categoryData, styles.addSpace]}>
+            {key}
+          </Text>
+          {categoriesData &&
+            categoriesData[key].map((value, keyIndex) => (
+              <View key={keyIndex}>
+                <View style={styles.container}>
+                  <View style={styles.rightBlock}>
+                    <Image
+                      source={value.img}
+                      style={styles.icon}
+                      resizeMode={'contain'}
+                    />
+                    <View style={styles.categoryDetails}>
+                      <Text style={[styles.color, styles.categoryTitle]}>
+                        {value.from}
+                      </Text>
+                      <Text style={[styles.color, styles.categoryData]}>
+                        {value.time}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.paymentStatus}>
+                    <Text
+                      style={[
+                        styles.amount,
+                        {
+                          color:
+                            value.status === 'Successful' ? sucess : '#eb5e38',
+                        },
+                      ]}>
+                      {`${value.status === 'Successful' ? '+' : '-'} ${
+                        value.amount
+                      }`}
                     </Text>
-                    <Text style={[styles.color, styles.categoryData]}>
-                      {value.time}
+                    <Text
+                      style={[
+                        styles.staus,
+                        {
+                          color:
+                            value.status === 'Successful' ? sucess : '#eb5e38',
+                        },
+                      ]}>
+                      {value.status}
                     </Text>
                   </View>
                 </View>
-                <View style={styles.paymentStatus}>
-                  <Text
-                    style={[
-                      styles.amount,
-                      {
-                        color:
-                          value.status === 'Successful' ? sucess : '#eb5e38',
-                      },
-                    ]}>
-                    {`${value.status === 'Successful' ? '+' : '-'} ${
-                      value.amount
-                    }`}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.staus,
-                      {
-                        color:
-                          value.status === 'Successful' ? sucess : '#eb5e38',
-                      },
-                    ]}>
-                    {value.status}
-                  </Text>
-                </View>
               </View>
-            </View>
-          ))}
-        </>
+            ))}
+        </View>
       ))}
     </View>
-  );
+  ) : null;
 }
 
 const styles = StyleSheet.create({

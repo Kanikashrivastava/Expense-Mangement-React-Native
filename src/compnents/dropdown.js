@@ -7,7 +7,7 @@ class Dropdown extends React.Component {
     super();
     this.state = {
       displayMenu: false,
-      selectedValue: 'Select',
+      selectedValue: data[0].name,
     };
   }
 
@@ -16,7 +16,9 @@ class Dropdown extends React.Component {
   };
 
   hideDropdownMenu = (selectedValue) => {
+    let {monthHandler} = this.props;
     this.setState({displayMenu: false, selectedValue});
+    monthHandler(selectedValue);
   };
 
   render() {

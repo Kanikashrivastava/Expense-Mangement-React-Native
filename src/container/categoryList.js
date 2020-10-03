@@ -1,21 +1,40 @@
-import React from 'react';
-import {View, Text, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
-function CategoryList({categories}) {
+function CategoryList({categories, onSelectCategory}) {
+  const [selectedValue, setSelectedValue] = useState(categories[0].name);
+  const selectCategory = (val) => {
+    setSelectedValue(val);
+  };
+  useEffect(() => {
+    if (selectedValue) {
+      return onSelectCategory(selectedValue);
+    }
+  }, [onSelectCategory, selectedValue]);
+
   return (
     <View>
-      {categories.map((category) => (
-        <View
-          key={category.id}
-          style={[
-            styles.expenseCategoryBlock,
-            {backgroundColor: category.color},
-          ]}>
-          <Text style={styles.categoryText}>{category.name}</Text>
-        </View>
-      ))}
+      {categories
+        ? categories.map((category) => (
+            <TouchableOpacity
+              key={category.id}
+              onPress={() => selectCategory(category.name)}
+              style={[
+                styles.expenseCategoryBlock,
+                {backgroundColor: category.color},
+              ]}>
+              <Text style={styles.categoryText}>{category.name}</Text>
+            </TouchableOpacity>
+          ))
+        : null}
     </View>
   );
 }
