@@ -11,7 +11,7 @@ const {width} = Dimensions.get('window');
 
 function CategoryList({categories, onSelectCategory}) {
   const [selectedValue, setSelectedValue] = useState(categories[0].name);
-  const selectCategory = (val) => {
+  const selectCategory = (val) => () => {
     setSelectedValue(val);
   };
   useEffect(() => {
@@ -26,7 +26,7 @@ function CategoryList({categories, onSelectCategory}) {
         ? categories.map((category) => (
             <TouchableOpacity
               key={category.id}
-              onPress={() => selectCategory(category.name)}
+              onPress={selectCategory(category.name)}
               style={[
                 styles.expenseCategoryBlock,
                 {backgroundColor: category.color},

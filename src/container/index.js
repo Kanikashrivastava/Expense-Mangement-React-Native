@@ -16,7 +16,7 @@ import TransactionHistory from './transactionHistory';
 import Dropdown from '../compnents/dropdown';
 import {zomato, dunzo} from '../assests/image';
 
-const {width, Height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const categories = {
   'Jan 2020': [
     {

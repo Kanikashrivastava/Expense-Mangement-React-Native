@@ -3,7 +3,15 @@ import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
-const sucess = '#2A9D8F';
+const amountColor = {
+  Successful: '#2A9D8F',
+  Failed: '#eb5e38',
+};
+
+const amountSign = {
+  Successful: '+',
+  Failed: '-',
+};
 export default function TransactionHistory({categoriesData}) {
   return categoriesData ? (
     <View>
@@ -37,20 +45,16 @@ export default function TransactionHistory({categoriesData}) {
                       style={[
                         styles.amount,
                         {
-                          color:
-                            value.status === 'Successful' ? sucess : '#eb5e38',
+                          color: amountColor[value.status],
                         },
                       ]}>
-                      {`${value.status === 'Successful' ? '+' : '-'} ${
-                        value.amount
-                      }`}
+                      {`${amountSign[value.status]} ${value.amount}`}
                     </Text>
                     <Text
                       style={[
                         styles.staus,
                         {
-                          color:
-                            value.status === 'Successful' ? sucess : '#eb5e38',
+                          color: amountColor[value.status],
                         },
                       ]}>
                       {value.status}

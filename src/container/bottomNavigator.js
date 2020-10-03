@@ -3,7 +3,7 @@ import {View, Image, StyleSheet, Dimensions} from 'react-native';
 import {home, notifications, offers, profile} from '../assests/image';
 
 const {height, width} = Dimensions.get('window');
-function BottomNavigator(props) {
+function BottomNavigator() {
   return (
     <View style={styles.container}>
       <Image source={home} style={styles.icon} resizeMode={'contain'} />
